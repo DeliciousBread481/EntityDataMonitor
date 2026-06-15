@@ -1,0 +1,62 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.settings/
+.classpath
+.project
+bin/
+
+# Eclipse
+.apt_generated
+.factorypath
+.springBeans
+
+# IntelliJ IDEA
+out/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# Minecraft
+run/
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.log
+*.tmp
+
+# Fabric
+fabric.mod.json
+
+# Forge
+forge-*-changelog.txt
+*/conf/
+
+# Mod building
+*.litemod
+*.mod
+mods/
+versions/
+
+# Dependency cache
+.dependency-cache/
