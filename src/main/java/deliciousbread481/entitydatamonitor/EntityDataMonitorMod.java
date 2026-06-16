@@ -5,6 +5,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelOutboundHandlerAdapter;
 import io.netty.channel.ChannelPromise;
 import net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket;
+import net.minecraft.network.protocol.game.ClientboundBundlePacket;
+import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
@@ -111,12 +113,18 @@ public class EntityDataMonitorMod {
 
         @Override
         public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
-            if (msg instanceof ClientboundSetEntityDataPacket pkt) {
-                try {
+            try {
+                if (msg instanceof ClientboundBundlePacket bundle) {
+                    for (Packet<?> subPacket : bundle.subPackets()) {
+                        if (subPacket instanceof ClientboundSetEntityDataPacket pkt) {
+                            logPacket(pkt);
+                        }
+                    }
+                } else if (msg instanceof ClientboundSetEntityDataPacket pkt) {
                     logPacket(pkt);
-                } catch (Exception e) {
-                    LOGGER.error("记录包时出错", e);
                 }
+            } catch (Exception e) {
+                LOGGER.error("记录包时出错", e);
             }
             super.write(ctx, msg, promise);
         }
